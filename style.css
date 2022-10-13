@@ -28,7 +28,6 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
   height: 100vh;
-  /* background-image: url('./images/doodles-gaa8e409d0_1280.jpg'); */
   background-image: url('./images/desktop-g64dc3ac57_1280.jpg');
   background-size: cover;
   background-position: center;
@@ -137,8 +136,19 @@ body {
   color: red;
 }
 
+/* Drawing area */
+.sketch {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(10px, 1fr));
+  grid-template-rows: repeat(5, minmax(10px, 1fr));
+}
+
+.grid {
+  border: solid 1px var(--primary-light);
+}
 
 
+/* Footer */
 footer {
   align-self: stretch;
   padding: 20px;
