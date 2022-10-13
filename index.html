@@ -47,14 +47,14 @@
     <div class="settings">
       <h2>TOOLS</h2> 
       <div class="sketch-tools">
-        <button type="button" class="btn tools-black"></button>
-        <button type="button" class="btn tools-rainbow"></button>
-        <button type="button" class="btn tools-shade"></button>
-        <button type="button" class="btn tools-clear"></button>
+        <button type="button" class="btn tools-black active" title="Black"></button>
+        <!-- <button type="button" class="btn tools-rainbow" title="Rainbow"></button>
+        <button type="button" class="btn tools-shade" title="10% Black"></button> -->
+        <button type="button" class="btn tools-erase" title="Eraser"></button>
       </div>
       <div class="sketch-sizes">
-        <input type="range" id="range-slider" min="5" max="100">
-        <p id="grid-info"></p>
+        <input type="range" id="range-slider" min="2" max="100" value="5" step="1">
+        <p id="grid-info">Grid size: <span class="grid-size"></span> x <span class="grid-size"></span></p>
       </div>
     </div>
   </div>
