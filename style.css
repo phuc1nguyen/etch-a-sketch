@@ -5,6 +5,8 @@
   --secondary-light: #ededed;
   --primary-dark: #333;
   --primary-red: #dc2626;
+  --knobs-size: 60px;
+  --knobs-spacing: 10px;
 }
 
 *,
@@ -31,3 +33,80 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.board {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 650px;
+  height: 650px;
+  
+  background-color: var(--primary-red);
+  border-radius: 20px;
+  margin-top: 50px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+}
+
+.board .sketch {
+  height: 80%;
+  width: 80%;
+  margin: 50px 0; 
+  background-color: var(--secondary-light);
+}
+
+.board h1,
+.board .knobs {
+  position: absolute;
+}
+
+.board h1 {
+  top: 0;
+  font-size: 3rem;
+  color: #facc15;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.board .knobs {
+  bottom: calc(var(--knobs-size) + var(--knobs-spacing));
+  width: 100%;
+}
+
+.board .knobs > * {
+  position: inherit;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  width: var(--knobs-size);
+  height: var(--knobs-size);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.knobs-left {
+  left: var(--knobs-spacing);
+}
+
+.knobs-right {
+  right: var(--knobs-spacing);
+}
+
+
+
+
+footer {
+  align-self: stretch;
+  padding: 20px;
+  text-align: center;
+  background-color: var(--secondary-light);
+}
+
+footer a {
+  color: var(--primary-red);
+}
+
