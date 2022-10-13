@@ -40,7 +40,7 @@ function checkDrawingMode() {
   //   !blackBtn.classList.contains("active") &&
   //   eraserBtn.classList.contains("active");
 
-  return drawingMode ? drawingMode : false;
+  return drawingMode;
 }
 
 // Grid
@@ -48,7 +48,7 @@ function createGrid(gridSize) {
   grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
   grid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
-  for (let i = 0; i < gridSize * gridSize; i++) {
+  for (let i = 0; i < gridSize ** 2; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     if (checkDrawingMode()) {
@@ -72,7 +72,8 @@ function destroyGrid() {
 }
 
 function changeGridSize(e) {
-  const gridSize = parseInt(e.target.value);
+  const gridSize = +e.target.value;
+  console.log(typeof gridSize);
   destroyGrid();
   createGrid(gridSize);
 }
