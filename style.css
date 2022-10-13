@@ -143,10 +143,6 @@ body {
   grid-template-rows: repeat(5, minmax(10px, 1fr));
 }
 
-.grid {
-  border: solid 1px var(--primary-light);
-}
-
 
 /* Footer */
 footer {
@@ -169,4 +165,8 @@ footer a {
   height: 40px;
   width: 40px;
   cursor: pointer;
+}
+
+.scale {
+  transform: scale(1.1);
 }
