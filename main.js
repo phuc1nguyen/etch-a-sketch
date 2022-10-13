@@ -1,10 +1,10 @@
+const grid = document.querySelector(".grid");
 const boardKnobs = document.querySelector(".knobs").childNodes;
-const grids = document.querySelectorAll(".grid");
 const blackBtn = document.querySelector(".tools-black");
 const eraserBtn = document.querySelector(".tools-erase");
 
 // Initialize
-drawGrids();
+createGrid(5);
 
 // Modes
 blackBtn.addEventListener("click", switchMode);
@@ -27,25 +27,39 @@ function switchMode(e) {
     eraserBtn.classList.contains("active");
 
   if (drawingMode) {
-    drawGrids();
+    drawCells();
   } else if (erasingMode) {
-    eraseGrids();
+    eraseCells();
   }
 }
 
 // Grid creation
-function drawGrids() {
-  grids.forEach((grid) => {
-    grid.addEventListener("mouseover", () => {
-      grid.classList.add("black");
+function createGrid(gridSize) {
+  grid.style.gridTemplateColumns = `repeat(${gridSize}, minmax(10px, 1fr))`;
+  grid.style.gridTemplateRows = `repeat(${gridSize}, minmax(10px, 1fr))`;
+
+  for (let i = 0; i < gridSize * gridSize; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    cell.addEventListener("mouseover", (e) => {
+      e.target.classList.add("black");
+    });
+    grid.appendChild(cell);
+  }
+}
+
+function drawCells() {
+  document.querySelectorAll(".cell").forEach((item) => {
+    item.addEventListener("mouseover", () => {
+      item.classList.add("black");
     });
   });
 }
 
-function eraseGrids() {
-  grids.forEach((grid) => {
-    grid.addEventListener("mouseover", () => {
-      grid.classList.remove("black");
+function eraseCells() {
+  document.querySelectorAll(".cell").forEach((item) => {
+    item.addEventListener("mouseover", () => {
+      item.classList.remove("black");
     });
   });
 }

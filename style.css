@@ -60,12 +60,14 @@ body {
   box-shadow: 0 0 10px 2px black;
 }
 
-.board .sketch {
+/* Drawing area */
+.board .grid {
   height: 80%;
   width: 80%;
   margin: 50px 0; 
   background-color: var(--secondary-light);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.8) inset;
+  display: grid;
 }
 
 .board h1,
@@ -134,13 +136,6 @@ body {
 
 #range-slider {
   cursor: pointer;
-}
-
-/* Drawing area */
-.sketch {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(10px, 1fr));
-  grid-template-rows: repeat(5, minmax(10px, 1fr));
 }
 
 
