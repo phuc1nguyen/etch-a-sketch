@@ -1,4 +1,5 @@
 const DEFAULT_SIZE = 5;
+const year = new Date().getFullYear();
 const grid = document.querySelector(".grid");
 const boardKnobs = document.querySelector(".knobs").childNodes;
 const blackBtn = document.querySelector(".tools-black");
@@ -7,6 +8,7 @@ const clearBtn = document.querySelector(".tools-clear");
 const sizeSlider = document.querySelector("#size-slider");
 
 // Initialize
+document.querySelector(".footer-year").textContent = year;
 createGrid(DEFAULT_SIZE);
 
 // Modes
