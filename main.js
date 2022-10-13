@@ -37,8 +37,8 @@ function switchMode(e) {
 
 // Grid
 function createGrid(gridSize) {
-  grid.style.gridTemplateColumns = `repeat(${gridSize}, minmax(10px, 1fr))`;
-  grid.style.gridTemplateRows = `repeat(${gridSize}, minmax(10px, 1fr))`;
+  grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+  grid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
   for (let i = 0; i < gridSize * gridSize; i++) {
     const cell = document.createElement("div");
@@ -48,6 +48,16 @@ function createGrid(gridSize) {
     });
     grid.appendChild(cell);
   }
+}
+
+function clearGrid() {
+  grid.innerHTML = "";
+}
+
+function changeGridSize(e) {
+  const gridSize = parseInt(e.target.value);
+  clearGrid();
+  createGrid(gridSize);
 }
 
 function drawCells() {
@@ -75,6 +85,7 @@ function displayGridSize(e) {
 
 // https://stackoverflow.com/questions/18544890/onchange-event-on-input-type-range-is-not-triggering-in-firefox-while-dragging
 sizeSlider.addEventListener("input", displayGridSize);
+sizeSlider.addEventListener("change", changeGridSize);
 
 // Knobs' animation
 boardKnobs.forEach((knob) => {
