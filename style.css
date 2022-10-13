@@ -154,7 +154,7 @@ button.tools-clear {
 /* Footer */
 footer {
   align-self: stretch;
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   background-color: var(--secondary-light);
 }
