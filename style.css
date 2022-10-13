@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Montserrat:wght@400;700;900&display=swap');
+
+:root {
+  --primary-light: #fff;
+  --secondary-light: #ededed;
+  --primary-dark: #333;
+  --primary-red: #dc2626;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lobster Two', cursive;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
