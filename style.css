@@ -40,19 +40,19 @@ body {
   flex-direction: column;
 }
 
+/* Board */
 .board {
   position: relative;
-
   display: flex;
   justify-content: center;
   align-items: center;
   width: 650px;
   height: 650px;
-  
   background-color: var(--primary-red);
   border-radius: 20px;
   margin-top: 50px;
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
 }
 
 .board .sketch {
@@ -60,6 +60,7 @@ body {
   width: 80%;
   margin: 50px 0; 
   background-color: var(--secondary-light);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8) inset;
 }
 
 .board h1,
@@ -96,6 +97,38 @@ body {
   right: var(--knobs-spacing);
 }
 
+/* Toolbox */
+.settings {
+  border: solid 2px var(--primary-red);
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(10px, 1fr));
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+}
+
+.settings h2 {
+  grid-column: 1 / 3;
+  font-size: 2rem;
+}
+
+.settings .sketch-tools,
+.settings .sketch-sizes {
+  grid-row: 2 / 3;
+}
+
+.settings .sketch-tools {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.settings .sketch-sizes {
+  color: red;
+}
 
 
 
@@ -110,3 +143,13 @@ footer a {
   color: var(--primary-red);
 }
 
+/* Utilities */
+.btn {
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: red;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
