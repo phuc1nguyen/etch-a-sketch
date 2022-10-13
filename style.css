@@ -70,6 +70,10 @@ body {
   display: grid;
 }
 
+.cell {
+  transition: ease-in-out 0.2s;
+}
+
 .board h1,
 .board .knobs {
   position: absolute;
@@ -134,10 +138,17 @@ body {
   gap: 20px;
 }
 
-#size-slider {
-  cursor: pointer;
+button.tools-clear {
+  width: 100px;
+  background-color: var(--primary-light);
+  font-weight: bold;
+  font-size: 1rem;
 }
 
+#size-slider {
+  cursor: pointer;
+  width: 200px;
+}
 
 /* Footer */
 footer {

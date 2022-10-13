@@ -3,6 +3,7 @@ const grid = document.querySelector(".grid");
 const boardKnobs = document.querySelector(".knobs").childNodes;
 const blackBtn = document.querySelector(".tools-black");
 const eraserBtn = document.querySelector(".tools-erase");
+const clearBtn = document.querySelector(".tools-clear");
 const sizeSlider = document.querySelector("#size-slider");
 
 // Initialize
@@ -11,6 +12,7 @@ createGrid(DEFAULT_SIZE);
 // Modes
 blackBtn.addEventListener("click", switchMode);
 eraserBtn.addEventListener("click", switchMode);
+clearBtn.addEventListener("click", clearGrid);
 
 function switchMode(e) {
   const thisBtn = e.target;
@@ -21,18 +23,22 @@ function switchMode(e) {
     thisBtn.classList.add("active");
   }
 
+  if (checkDrawingMode()) {
+    drawCells();
+  } else {
+    eraseCells();
+  }
+}
+
+function checkDrawingMode() {
   const drawingMode =
     blackBtn.classList.contains("active") &&
     !eraserBtn.classList.contains("active");
-  const erasingMode =
-    !blackBtn.classList.contains("active") &&
-    eraserBtn.classList.contains("active");
+  // const erasingMode =
+  //   !blackBtn.classList.contains("active") &&
+  //   eraserBtn.classList.contains("active");
 
-  if (drawingMode) {
-    drawCells();
-  } else if (erasingMode) {
-    eraseCells();
-  }
+  return drawingMode ? drawingMode : false;
 }
 
 // Grid
@@ -43,20 +49,29 @@ function createGrid(gridSize) {
   for (let i = 0; i < gridSize * gridSize; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
-    cell.addEventListener("mouseover", (e) => {
-      e.target.classList.add("black");
-    });
+    if (checkDrawingMode()) {
+      cell.addEventListener("mouseover", (e) => {
+        e.target.classList.add("black");
+      });
+    }
     grid.appendChild(cell);
   }
 }
 
 function clearGrid() {
+  const activeCells = document.querySelectorAll(".black");
+  activeCells.forEach((item) => {
+    item.classList.remove("black");
+  });
+}
+
+function destroyGrid() {
   grid.innerHTML = "";
 }
 
 function changeGridSize(e) {
   const gridSize = parseInt(e.target.value);
-  clearGrid();
+  destroyGrid();
   createGrid(gridSize);
 }
 
