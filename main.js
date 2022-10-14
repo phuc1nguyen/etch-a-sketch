@@ -1,5 +1,5 @@
 const DEFAULT_SIZE = 5;
-const year = new Date().getFullYear();
+const thisYear = new Date().getFullYear();
 const grid = document.querySelector(".grid");
 const boardKnobs = document.querySelector(".knobs").childNodes;
 const blackBtn = document.querySelector(".tools-black");
@@ -8,7 +8,7 @@ const clearBtn = document.querySelector(".tools-clear");
 const sizeSlider = document.querySelector("#size-slider");
 
 // Initialize
-document.querySelector(".footer-year").textContent = year;
+document.querySelector(".footer-year").textContent = thisYear;
 createGrid(DEFAULT_SIZE);
 
 // Modes
@@ -25,14 +25,14 @@ function switchMode(e) {
     thisBtn.classList.add("active");
   }
 
-  if (checkDrawingMode()) {
+  if (isDrawingMode()) {
     drawCells();
   } else {
     eraseCells();
   }
 }
 
-function checkDrawingMode() {
+function isDrawingMode() {
   const drawingMode =
     blackBtn.classList.contains("active") &&
     !eraserBtn.classList.contains("active");
@@ -51,7 +51,7 @@ function createGrid(gridSize) {
   for (let i = 0; i < gridSize ** 2; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
-    if (checkDrawingMode()) {
+    if (isDrawingMode()) {
       cell.addEventListener("mouseover", (e) => {
         e.target.classList.add("black");
       });
@@ -71,9 +71,8 @@ function destroyGrid() {
   grid.innerHTML = "";
 }
 
-function changeGridSize(e) {
-  const gridSize = +e.target.value;
-  console.log(typeof gridSize);
+function changeGridSize() {
+  const gridSize = sizeSlider.value;
   destroyGrid();
   createGrid(gridSize);
 }
@@ -95,9 +94,9 @@ function eraseCells() {
 }
 
 // Size slider
-function displayGridSize(e) {
+function displayGridSize() {
   document.querySelectorAll(".grid-size").forEach((item) => {
-    item.textContent = e.target.value;
+    item.textContent = sizeSlider.value;
   });
 }
 
@@ -113,4 +112,41 @@ boardKnobs.forEach((knob) => {
   knob.addEventListener("mouseup", (e) => {
     e.target.classList.remove("scale-11");
   });
+});
+
+// Keyboard support
+window.addEventListener("keydown", (e) => {
+  switch (e.code) {
+    case "Escape":
+      clearBtn.click();
+      break;
+    case "KeyB":
+      blackBtn.click();
+      break;
+    case "KeyW":
+      eraserBtn.click();
+      break;
+    case "KeyH":
+      sizeSlider.value--;
+      displayGridSize();
+      break;
+    case "KeyL":
+      sizeSlider.value++;
+      displayGridSize();
+      break;
+    default:
+      console.log(e.code);
+      break;
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  switch (e.code) {
+    case "KeyH":
+      changeGridSize();
+      break;
+    case "KeyL":
+      changeGridSize();
+      break;
+  }
 });
