@@ -134,9 +134,14 @@ body {
 
 .settings .sketch-tools {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 20px;
+}
+
+.sketch-tools .buttons-color {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
 }
 
 button.tools-clear {
@@ -168,14 +173,13 @@ footer a {
   outline: none;
   border: none;
   border-radius: 5px;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   cursor: pointer;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.tools-black,
-.black {
+.tools-black {
   background-color: black;
 }
 
@@ -185,6 +189,18 @@ footer a {
    rgba(255, 255, 0, 1) 33%,
    rgba(0, 192, 255, 1) 66%,
    rgba(192, 0, 255, 1) 100%);
+}
+
+.tools-red {
+  background-color: rgb(255, 0, 0);
+}
+
+.tools-green {
+  background-color: rgb(0, 255, 0);
+}
+
+.tools-blue {
+  background-color: rgb(0, 0, 255);
 }
 
 .tools-shade {

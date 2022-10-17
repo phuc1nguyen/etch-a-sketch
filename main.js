@@ -3,11 +3,15 @@ const MIN_SIZE = 2;
 const MAX_SIZE = 100;
 const thisYear = new Date().getFullYear();
 const grid = document.querySelector(".grid");
-const cells = document.querySelectorAll(".cells");
 const boardKnobs = document.querySelector(".knobs").childNodes;
 const blackBtn = document.querySelector(".tools-black");
+// const rainbowBtn
 const eraserBtn = document.querySelector(".tools-erase");
+const redBtn = document.querySelector(".tools-red");
+const greenBtn = document.querySelector(".tools-green");
+const blueBtn = document.querySelector(".tools-blue");
 const clearBtn = document.querySelector(".tools-clear");
+const colorBtns = document.querySelectorAll(".btn");
 const sizeSlider = document.querySelector("#size-slider");
 const displaySizeSpans = document.querySelectorAll(".grid-size");
 let isMouseDown = false;
@@ -24,8 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Modes
-blackBtn.addEventListener("click", switchMode);
-eraserBtn.addEventListener("click", switchMode);
+colorBtns.forEach((btn, index, btnArr) => {
+  if (index !== btnArr.length - 1) {
+    btn.addEventListener("click", switchMode);
+  }
+});
 clearBtn.addEventListener("click", clearGrid);
 
 function switchMode(e) {
@@ -38,12 +45,8 @@ function switchMode(e) {
   }
 }
 
-function isDrawingMode() {
-  const drawingMode =
-    blackBtn.classList.contains("active") &&
-    !eraserBtn.classList.contains("active");
-
-  return drawingMode;
+function isErasingMode() {
+  return eraserBtn.classList.contains("active");
 }
 
 // Grid
@@ -57,27 +60,33 @@ function createGrid(gridSize) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     cell.addEventListener("mousedown", (e) => {
-      if (isDrawingMode()) {
-        e.target.classList.add("black");
+      if (isErasingMode()) {
+        e.target.style.backgroundColor = "";
       } else {
-        e.target.classList.remove("black");
+        // e.target.style.backgroundColor =
+        //   document.querySelector(".active").dataset.color;
+        e.target.style.backgroundColor =
+          document.querySelector(".active").dataset.color;
       }
       isMouseDown = true;
     });
     cell.addEventListener("mouseup", () => (isMouseDown = false));
     cell.addEventListener("touchend", () => (isMouseDown = false));
     cell.addEventListener("mouseover", (e) => {
-      if (isMouseDown && isDrawingMode()) e.target.classList.add("black");
-      if (isMouseDown && !isDrawingMode()) e.target.classList.remove("black");
+      if (isMouseDown && !isErasingMode())
+        e.target.style.backgroundColor =
+          document.querySelector(".active").dataset.color;
+      if (isMouseDown && isErasingMode()) e.target.style.backgroundColor = "";
     });
     grid.appendChild(cell);
   }
 }
 
 function clearGrid() {
-  const activeCells = document.querySelectorAll(".black");
-  activeCells.forEach((item) => {
-    item.classList.remove("black");
+  const cells = document.querySelectorAll(".cell");
+
+  cells.forEach((cell) => {
+    if (cell.style.backgroundColor) cell.style.backgroundColor = "";
   });
 }
 
@@ -89,24 +98,6 @@ function changeGridSize() {
   const gridSize = sizeSlider.value;
   destroyGrid();
   createGrid(gridSize);
-}
-
-function drawCells() {
-  cells.forEach((cell) => {
-    cell.addEventListener("mousedown", (e) => {
-      if (isDrawingMode()) {
-        e.target.classList.add("black");
-      } else {
-        e.target.classList.remove("black");
-      }
-      isMouseDown = true;
-    });
-    cell.addEventListener("mouseup", () => (isMouseDown = false));
-    cell.addEventListener("mouseover", (e) => {
-      if (isMouseDown && isDrawingMode()) e.target.classList.add("black");
-      if (isMouseDown && !isDrawingMode()) e.target.classList.remove("black");
-    });
-  });
 }
 
 // Size slider

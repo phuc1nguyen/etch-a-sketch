@@ -23,10 +23,15 @@
     <div class="settings">
       <h2>TOOLS</h2> 
       <div class="sketch-tools">
-        <button type="button" class="btn tools-black active" title="Black"></button>
-        <!-- <button type="button" class="btn tools-rainbow" title="Rainbow"></button>
-        <button type="button" class="btn tools-shade" title="10% Black"></button> -->
-        <button type="button" class="btn tools-erase" title="Eraser"></button>
+        <div class="buttons-color">
+          <button type="button" class="btn tools-black active" data-color="rgb(0, 0, 0)" title="Black"></button>
+          <button type="button" class="btn tools-rainbow" data-color="rainbow" title="Rainbow"></button>
+          <button type="button" class="btn tools-erase" title="Eraser"></button>
+          <!-- <button type="button" class="btn tools-shade" title="10% Black"></button> -->
+          <button type="button" class="btn tools-red" data-color="rgb(255, 0, 0)" title="Red"></button>
+          <button type="button" class="btn tools-green" data-color="rgb(0, 255, 0)" title="Green"></button>
+          <button type="button" class="btn tools-blue" data-color="rgb(0, 0, 255)" title="Blue"></button>
+        </div>
         <button type="button" class="btn tools-clear">CLEAR</button>
       </div>
       <div class="sketch-sizes">
