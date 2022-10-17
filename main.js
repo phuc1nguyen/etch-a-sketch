@@ -3,12 +3,14 @@ const MIN_SIZE = 2;
 const MAX_SIZE = 100;
 const thisYear = new Date().getFullYear();
 const grid = document.querySelector(".grid");
+const cells = document.querySelectorAll(".cells");
 const boardKnobs = document.querySelector(".knobs").childNodes;
 const blackBtn = document.querySelector(".tools-black");
 const eraserBtn = document.querySelector(".tools-erase");
 const clearBtn = document.querySelector(".tools-clear");
 const sizeSlider = document.querySelector("#size-slider");
 const displaySizeSpans = document.querySelectorAll(".grid-size");
+let isMouseDown = false;
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
@@ -34,21 +36,12 @@ function switchMode(e) {
     activeBtn.classList.remove("active");
     thisBtn.classList.add("active");
   }
-
-  if (isDrawingMode()) {
-    drawCells();
-  } else {
-    eraseCells();
-  }
 }
 
 function isDrawingMode() {
   const drawingMode =
     blackBtn.classList.contains("active") &&
     !eraserBtn.classList.contains("active");
-  // const erasingMode =
-  //   !blackBtn.classList.contains("active") &&
-  //   eraserBtn.classList.contains("active");
 
   return drawingMode;
 }
@@ -63,11 +56,20 @@ function createGrid(gridSize) {
   for (let i = 0; i < size ** 2; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
-    if (isDrawingMode()) {
-      cell.addEventListener("mouseover", (e) => {
+    cell.addEventListener("mousedown", (e) => {
+      if (isDrawingMode()) {
         e.target.classList.add("black");
-      });
-    }
+      } else {
+        e.target.classList.remove("black");
+      }
+      isMouseDown = true;
+    });
+    cell.addEventListener("mouseup", () => (isMouseDown = false));
+    cell.addEventListener("touchend", () => (isMouseDown = false));
+    cell.addEventListener("mouseover", (e) => {
+      if (isMouseDown && isDrawingMode()) e.target.classList.add("black");
+      if (isMouseDown && !isDrawingMode()) e.target.classList.remove("black");
+    });
     grid.appendChild(cell);
   }
 }
@@ -90,17 +92,19 @@ function changeGridSize() {
 }
 
 function drawCells() {
-  document.querySelectorAll(".cell").forEach((item) => {
-    item.addEventListener("mouseover", () => {
-      item.classList.add("black");
+  cells.forEach((cell) => {
+    cell.addEventListener("mousedown", (e) => {
+      if (isDrawingMode()) {
+        e.target.classList.add("black");
+      } else {
+        e.target.classList.remove("black");
+      }
+      isMouseDown = true;
     });
-  });
-}
-
-function eraseCells() {
-  document.querySelectorAll(".cell").forEach((item) => {
-    item.addEventListener("mouseover", () => {
-      item.classList.remove("black");
+    cell.addEventListener("mouseup", () => (isMouseDown = false));
+    cell.addEventListener("mouseover", (e) => {
+      if (isMouseDown && isDrawingMode()) e.target.classList.add("black");
+      if (isMouseDown && !isDrawingMode()) e.target.classList.remove("black");
     });
   });
 }
