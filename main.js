@@ -5,7 +5,7 @@ const thisYear = new Date().getFullYear();
 const grid = document.querySelector(".grid");
 const boardKnobs = document.querySelector(".knobs").childNodes;
 const blackBtn = document.querySelector(".tools-black");
-// const rainbowBtn
+const rainbowBtn = document.querySelector(".tools-rainbow");
 const eraserBtn = document.querySelector(".tools-erase");
 const redBtn = document.querySelector(".tools-red");
 const greenBtn = document.querySelector(".tools-green");
@@ -47,6 +47,25 @@ function switchMode(e) {
 
 function isErasingMode() {
   return eraserBtn.classList.contains("active");
+}
+
+function randomRgb() {
+  //https://stackoverflow.com/questions/23095637/how-do-you-get-random-rgb-in-javascript
+  const o = Math.round,
+    r = Math.random,
+    s = 255;
+
+  return (
+    "rgba(" +
+    o(r() * s) +
+    "," +
+    o(r() * s) +
+    "," +
+    o(r() * s) +
+    "," +
+    r().toFixed(1) +
+    ")"
+  );
 }
 
 // Grid
