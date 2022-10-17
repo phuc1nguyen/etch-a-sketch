@@ -82,8 +82,6 @@ function createGrid(gridSize) {
       if (isErasingMode()) {
         e.target.style.backgroundColor = "";
       } else {
-        // e.target.style.backgroundColor =
-        //   document.querySelector(".active").dataset.color;
         e.target.style.backgroundColor =
           document.querySelector(".active").dataset.color;
       }
@@ -161,14 +159,26 @@ boardKnobs.forEach((knob) => {
 // Keyboard support
 window.addEventListener("keydown", (e) => {
   switch (e.code) {
-    case "Space":
+    case "Escape":
       clearBtn.click();
       break;
-    case "KeyB":
+    case "KeyD":
       blackBtn.click();
       break;
-    case "KeyW":
+    case "KeyR":
+      redBtn.click();
+      break;
+    case "KeyG":
+      greenBtn.click();
+      break;
+    case "KeyB":
+      blueBtn.click();
+      break;
+    case "KeyE":
       eraserBtn.click();
+      break;
+    case "KeyT":
+      rainbowBtn.click();
       break;
     default:
       break;
