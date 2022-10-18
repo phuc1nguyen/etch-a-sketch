@@ -53,12 +53,6 @@ body {
   align-items: center;
 }
 
-.container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
 /* Board */
 .board {
   position: relative;
@@ -172,7 +166,9 @@ button.tools-clear {
 
 /* Footer */
 footer {
-  align-self: stretch;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   padding: 15px;
   text-align: center;
   background-color: var(--secondary-light);
