@@ -73,8 +73,12 @@ function isErasingMode() {
 
 function getDrawingColor() {
   for (const color in COLORS) {
-    if (COLORS[color].button.classList.contains("active"))
+    if (COLORS[color].button.classList.contains("active")) {
       return COLORS[color].value;
+    }
+    if (COLORS["rainbow"].button.classList.contains("active")) {
+      return randomRgb();
+    }
   }
   return null;
 }
