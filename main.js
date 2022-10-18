@@ -1,17 +1,43 @@
-const DEFAULT_SIZE = 5;
-const MIN_SIZE = 2;
-const MAX_SIZE = 100;
+const DEFAULT_SIZE = 5,
+  MIN_SIZE = 2,
+  MAX_SIZE = 100;
+const COLORS = {
+  black: {
+    id: 1,
+    button: document.querySelector(".tools-black"),
+    value: "#000",
+  },
+  rainbow: {
+    id: 2,
+    name: "rainbow",
+    button: document.querySelector(".tools-rainbow"),
+    value: "",
+  },
+  white: {
+    id: 3,
+    button: document.querySelector(".tools-erase"),
+    value: "#ededed",
+  },
+  red: {
+    id: 4,
+    button: document.querySelector(".tools-red"),
+    value: "rgb(255, 0, 0)",
+  },
+  green: {
+    id: 5,
+    button: document.querySelector(".tools-green"),
+    value: "rgb(0, 255, 0)",
+  },
+  blue: {
+    id: 6,
+    button: document.querySelector(".tools-blue"),
+    value: "rgb(0, 0, 255)",
+  },
+};
+const clearBtn = document.querySelector(".tools-clear");
 const thisYear = new Date().getFullYear();
 const grid = document.querySelector(".grid");
 const boardKnobs = document.querySelector(".knobs").childNodes;
-const blackBtn = document.querySelector(".tools-black");
-const rainbowBtn = document.querySelector(".tools-rainbow");
-const eraserBtn = document.querySelector(".tools-erase");
-const redBtn = document.querySelector(".tools-red");
-const greenBtn = document.querySelector(".tools-green");
-const blueBtn = document.querySelector(".tools-blue");
-const clearBtn = document.querySelector(".tools-clear");
-const colorBtns = document.querySelectorAll(".btn");
 const sizeSlider = document.querySelector("#size-slider");
 const displaySizeSpans = document.querySelectorAll(".grid-size");
 let isMouseDown = false;
@@ -21,18 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".footer-year").textContent = thisYear;
   sizeSlider.setAttribute("min", MIN_SIZE);
   sizeSlider.setAttribute("max", MAX_SIZE);
-  displaySizeSpans.forEach((item) => {
-    item.textContent = DEFAULT_SIZE;
-  });
+  displaySizeSpans.forEach((item) => (item.textContent = DEFAULT_SIZE));
   createGrid(DEFAULT_SIZE);
 });
 
 // Modes
-colorBtns.forEach((btn, index, btnArr) => {
-  if (index !== btnArr.length - 1) {
-    btn.addEventListener("click", switchMode);
-  }
-});
+for (const color in COLORS) {
+  COLORS[color].button.addEventListener("click", switchMode);
+}
 clearBtn.addEventListener("click", clearGrid);
 
 function switchMode(e) {
@@ -46,7 +68,15 @@ function switchMode(e) {
 }
 
 function isErasingMode() {
-  return eraserBtn.classList.contains("active");
+  return COLORS.white.button.classList.contains("active");
+}
+
+function getDrawingColor() {
+  for (const color in COLORS) {
+    if (COLORS[color].button.classList.contains("active"))
+      return COLORS[color].value;
+  }
+  return null;
 }
 
 function randomRgb() {
@@ -70,39 +100,36 @@ function randomRgb() {
 
 // Grid
 function createGrid(gridSize) {
-  const size = parseInt(gridSize);
-
   grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
   grid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
-  for (let i = 0; i < size ** 2; i++) {
+  for (let i = 0; i < gridSize ** 2; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     cell.addEventListener("mousedown", (e) => {
       if (isErasingMode()) {
         e.target.style.backgroundColor = "";
       } else {
-        e.target.style.backgroundColor =
-          document.querySelector(".active").dataset.color;
+        e.target.style.backgroundColor = getDrawingColor();
       }
       isMouseDown = true;
     });
     cell.addEventListener("mouseup", () => (isMouseDown = false));
     cell.addEventListener("touchend", () => (isMouseDown = false));
     cell.addEventListener("mouseover", (e) => {
-      if (isMouseDown && !isErasingMode())
-        e.target.style.backgroundColor =
-          document.querySelector(".active").dataset.color;
-      if (isMouseDown && isErasingMode()) e.target.style.backgroundColor = "";
+      if (isMouseDown && !isErasingMode()) {
+        e.target.style.backgroundColor = getDrawingColor();
+      }
+      if (isMouseDown && isErasingMode()) {
+        e.target.style.backgroundColor = "";
+      }
     });
     grid.appendChild(cell);
   }
 }
 
 function clearGrid() {
-  const cells = document.querySelectorAll(".cell");
-
-  cells.forEach((cell) => {
+  document.querySelectorAll(".cell").forEach((cell) => {
     if (cell.style.backgroundColor) cell.style.backgroundColor = "";
   });
 }
@@ -123,13 +150,13 @@ sizeSlider.addEventListener("wheel", (e) => {
   const isScrollinDown = e.deltaY > 0;
   const isScrollingUp = e.deltaY < 0;
 
-  if (isScrollinDown && +e.target.value > MIN_SIZE) {
+  if (isScrollinDown && e.target.value > MIN_SIZE) {
     e.target.value--;
     displayGridSize();
     changeGridSize();
   }
 
-  if (isScrollingUp && +e.target.value < MAX_SIZE) {
+  if (isScrollingUp && e.target.value < MAX_SIZE) {
     e.target.value++;
     displayGridSize();
     changeGridSize();
@@ -163,22 +190,22 @@ window.addEventListener("keydown", (e) => {
       clearBtn.click();
       break;
     case "KeyD":
-      blackBtn.click();
+      COLORS.black.button.click();
+      break;
+    case "KeyW":
+      COLORS.white.button.click();
       break;
     case "KeyR":
-      redBtn.click();
+      COLORS.red.button.click();
       break;
     case "KeyG":
-      greenBtn.click();
+      COLORS.green.button.click();
       break;
     case "KeyB":
-      blueBtn.click();
-      break;
-    case "KeyE":
-      eraserBtn.click();
+      COLORS.blue.button.click();
       break;
     case "KeyT":
-      rainbowBtn.click();
+      COLORS.rainbow.button.click();
       break;
     default:
       break;
