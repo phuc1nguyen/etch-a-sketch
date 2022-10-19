@@ -35,12 +35,14 @@ const COLORS = {
   },
 };
 const clearBtn = document.querySelector(".tools-clear");
+const gridToggleBtn = document.querySelector(".tools-grid");
 const thisYear = new Date().getFullYear();
 const grid = document.querySelector(".grid");
 const boardKnobs = document.querySelector(".knobs").childNodes;
 const sizeSlider = document.querySelector("#size-slider");
 const displaySizeSpans = document.querySelectorAll(".grid-size");
 let isMouseDown = false;
+let isGridVisible = false;
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
@@ -55,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 for (const color in COLORS) {
   COLORS[color].button.addEventListener("click", switchMode);
 }
+gridToggleBtn.addEventListener("click", toggleGrid);
 clearBtn.addEventListener("click", clearGrid);
 
 function switchMode(e) {
@@ -74,13 +77,12 @@ function isErasingMode() {
 function getDrawingColor() {
   for (const color in COLORS) {
     if (COLORS[color].button.classList.contains("active")) {
+      if (color === "rainbow") {
+        COLORS["rainbow"].value = randomRgb();
+      }
       return COLORS[color].value;
     }
-    if (COLORS["rainbow"].button.classList.contains("active")) {
-      return randomRgb();
-    }
   }
-  return null;
 }
 
 function randomRgb() {
@@ -100,6 +102,10 @@ function createGrid(gridSize) {
   for (let i = 0; i < gridSize ** 2; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
+
+    if (isGridVisible) {
+      cell.classList.add("cell-border");
+    }
     cell.addEventListener("mousedown", (e) => {
       if (isErasingMode()) {
         e.target.style.backgroundColor = "";
@@ -109,7 +115,6 @@ function createGrid(gridSize) {
       isMouseDown = true;
     });
     cell.addEventListener("mouseup", () => (isMouseDown = false));
-    cell.addEventListener("touchend", () => (isMouseDown = false));
     cell.addEventListener("mouseover", (e) => {
       if (isMouseDown && !isErasingMode()) {
         e.target.style.backgroundColor = getDrawingColor();
@@ -118,7 +123,23 @@ function createGrid(gridSize) {
         e.target.style.backgroundColor = "";
       }
     });
+
     grid.appendChild(cell);
+  }
+}
+
+function toggleGrid() {
+  const cells = document.querySelectorAll(".cell");
+  isGridVisible = !isGridVisible;
+
+  if (isGridVisible) {
+    cells.forEach((cell) => {
+      cell.classList.add("cell-border");
+    });
+  } else {
+    cells.forEach((cell) => {
+      cell.classList.remove("cell-border");
+    });
   }
 }
 

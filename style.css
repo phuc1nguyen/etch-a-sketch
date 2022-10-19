@@ -45,7 +45,7 @@ body {
   height: 100vh;
   background-image: url('./images/desktop-g64dc3ac57_1280.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: top;
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   display: flex;
@@ -63,7 +63,7 @@ body {
   height: 650px;
   background-color: var(--primary-red);
   border-radius: 20px;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 30px;
   box-shadow: 0 0 10px 2px black;
 }
@@ -127,7 +127,7 @@ body {
   align-items: center;
   gap: 15px;
   padding: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 }
 
 .settings h2 {
@@ -152,7 +152,15 @@ body {
   gap: 15px;
 }
 
-button.tools-clear {
+.sketch-tools .buttons-not-color {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+button.tools-clear,
+button.tools-grid {
   width: 100px;
   background-color: var(--primary-light);
   font-weight: bold;
@@ -227,4 +235,8 @@ footer a {
 
 .scale-11 {
   transform: scale(1.1);
+}
+
+.cell-border {
+  border: solid 1px rgb(204, 204, 204);
 }
