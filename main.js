@@ -201,26 +201,29 @@ boardKnobs.forEach((knob) => {
 // Keyboard support
 window.addEventListener("keydown", (e) => {
   switch (e.code) {
+    case "KeyG":
+      gridToggleBtn.click();
+      break;
     case "Escape":
       clearBtn.click();
       break;
-    case "KeyD":
+    case "Digit1":
+      COLORS.red.button.click();
+      break;
+    case "Digit2":
+      COLORS.green.button.click();
+      break;
+    case "Digit3":
+      COLORS.blue.button.click();
+      break;
+    case "KeyB":
       COLORS.black.button.click();
+      break;
+    case "KeyR":
+      COLORS.rainbow.button.click();
       break;
     case "KeyW":
       COLORS.white.button.click();
-      break;
-    case "KeyR":
-      COLORS.red.button.click();
-      break;
-    case "KeyG":
-      COLORS.green.button.click();
-      break;
-    case "KeyB":
-      COLORS.blue.button.click();
-      break;
-    case "KeyT":
-      COLORS.rainbow.button.click();
       break;
     default:
       break;
