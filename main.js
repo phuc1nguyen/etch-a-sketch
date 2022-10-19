@@ -1,6 +1,6 @@
 const DEFAULT_SIZE = 5,
   MIN_SIZE = 2,
-  MAX_SIZE = 100;
+  MAX_SIZE = 80;
 const COLORS = {
   black: {
     id: 1,
